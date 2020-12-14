@@ -1,0 +1,280 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://scripts/World.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Terrain.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Water.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/fonts/DEATH_FONT.TTF" type="DynamicFontData" id=4]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/textures/goal_circle.png" type="Texture" id=7]
+[ext_resource path="res://scenes/Compass.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/meshes/Tent_Poles_01.obj" type="ArrayMesh" id=9]
+
+[sub_resource type="QuadMesh" id=1]
+size = Vector2( 256, 256 )
+
+[sub_resource type="ViewportTexture" id=2]
+viewport_path = NodePath("AerialCam/Viewport")
+
+[sub_resource type="SpatialMaterial" id=3]
+resource_local_to_scene = true
+flags_unshaded = true
+albedo_texture = SubResource( 2 )
+
+[sub_resource type="Environment" id=4]
+background_mode = 1
+background_color = Color( 0.0156863, 0.203922, 0.47451, 1 )
+background_energy = 11.82
+ambient_light_color = Color( 0.0156863, 0.203922, 0.47451, 1 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 3, 3, 3 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "rotate"
+length = 4.0
+loop = true
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 90, 0 ), Vector3( 0, 180, 0 ), Vector3( 0, 270, 0 ), Vector3( 0, 360, 0 ) ]
+}
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 1, 10, 128 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 128
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="DynamicFont" id=14]
+size = 64
+font_data = ExtResource( 4 )
+
+[node name="World" type="Spatial"]
+script = ExtResource( 1 )
+block_map = NodePath("Terrain")
+view_distance = 256
+height = 64
+height_bias = 0.75
+seed_val = 47
+octaves = 4
+period = 84.0
+persistence = 0.4
+
+[node name="AerialCam" type="ViewportContainer" parent="."]
+margin_left = -256.0
+margin_top = -256.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="AerialCam"]
+size = Vector2( 256, 256 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="AerialCam/Viewport"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 50, 0 )
+cull_mask = 524287
+projection = 1
+size = 256.0
+
+[node name="GoalCircle" type="Sprite" parent="AerialCam/Viewport"]
+position = Vector2( 84, 85 )
+rotation = 0.785398
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 7 )
+
+[node name="Terrain" parent="." instance=ExtResource( 2 )]
+
+[node name="Water" parent="." instance=ExtResource( 3 )]
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -99, -15.1454, -128 )
+
+[node name="Map" type="Spatial" parent="Player"]
+transform = Transform( -0.005, 0, 0, 0, 0.005, -8.74228e-08, 0, 4.37114e-10, 1, 0, -1, 0.5 )
+visible = false
+
+[node name="MeshInstance" type="MeshInstance" parent="Player/Map"]
+transform = Transform( 1, 0, 0, 0, 0.999994, 0.00349065, 0, -0.00349065, 0.999994, 0, 0, 0 )
+layers = 524288
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="MapTween" type="Tween" parent="Player/Map"]
+
+[node name="Compass" parent="Player" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0.25 )
+visible = false
+
+[node name="CompassTween" type="Tween" parent="Player/Compass"]
+
+[node name="Sky" type="WorldEnvironment" parent="."]
+environment = SubResource( 4 )
+
+[node name="Sun" type="DirectionalLight" parent="Sky"]
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 5, 0 )
+light_color = Color( 0.8, 0.8, 0.6, 1 )
+light_energy = 2.0
+light_indirect_energy = 0.0
+shadow_enabled = true
+shadow_reverse_cull_face = true
+directional_shadow_blend_splits = true
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 2000.0
+
+[node name="TrueNorth" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1000 )
+
+[node name="Goal" type="Area" parent="."]
+transform = Transform( -0.8522, 0, -0.523216, 0, 1, 0, 0.523216, 0, -0.8522, 0, 5, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Goal"]
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Goal"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.75, -0.75, 0.75 )
+layers = 524288
+cast_shadow = 0
+mesh = ExtResource( 9 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+material/6 = null
+material/7 = null
+material/8 = null
+material/9 = null
+material/10 = null
+material/11 = null
+material/12 = null
+material/13 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Goal/MeshInstance"]
+anims/rotate = SubResource( 6 )
+
+[node name="Wall1" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -129, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall1"]
+shape = SubResource( 7 )
+
+[node name="Wall2" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 129, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall2"]
+shape = SubResource( 7 )
+
+[node name="Wall3" type="StaticBody" parent="."]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 0, 129 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall3"]
+shape = SubResource( 7 )
+
+[node name="Wall4" type="StaticBody" parent="."]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 0, -129 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall4"]
+shape = SubResource( 7 )
+
+[node name="Control" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 8 )
+text = "campsite found
+
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonHolder" type="Control" parent="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -400.0
+margin_top = -300.0
+margin_right = 400.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="Button" parent="Control/ButtonHolder"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -325.0
+margin_top = -50.0
+margin_bottom = 50.0
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
+text = "quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetButton" type="Button" parent="Control/ButtonHolder"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 325.0
+margin_bottom = 50.0
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
+text = "roll again"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="body_entered" from="Goal" to="." method="_on_Goal_body_entered"]
+[connection signal="pressed" from="Control/ButtonHolder/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="Control/ButtonHolder/ResetButton" to="." method="_on_ResetButton_pressed"]

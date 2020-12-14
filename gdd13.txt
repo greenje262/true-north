@@ -1,0 +1,84 @@
+[TRUE NORTH]
+
+Core mechanic
+    Walking around, looking at a map
+
+Core gameplay loop
+    Player looks at a map showing their location and goal, the player navigates towards the goal until the end of the current day
+    Player has to navigate using map and landmarks
+
+Intended player experience
+    Quiet, tranquil, puzzle-ish? Relaxing
+
+Theme
+    Great outdoors
+
+Most important thing
+    Making the scenery and nature feel immersive
+
+Primary features
+    Player start, end goal
+    Procgen landscape, including elevation map, water features, trees, and rocks
+    Map showing the goal and initial location
+    Compass pointing to true north
+
+Secondary features
+    Title/End scenes
+    Natural ambience
+    Day/night cycle
+
+Polish
+    Music
+    Wildlife
+    Different biomes
+
+What do I need to learn?
+    Making a procedurally-generated heightmap, and converting it into a map
+    Generating random scenery
+
+Workflow
+    Build player scene and movement
+    Program the heightmap functionality
+    Randomly generate water table to form ponds and lakes
+    Set terrain to randomize on load (just randomize the seed value)
+    Put the heightmap on the player map
+    Build the player's compass, pointing to a point faaaar off the map
+    Attach map, compass to player and tween 'em
+    Fix initialize so player starts on the ground
+    Fix E-W map flip
+    Make goal circle in Krita
+    Randomly generate a goal, and trigger scene end on enter
+    Align goal circle to goal on map
+    Fix player-goal interaction
+    "Unshade" map
+    Make map into an island
+    Tune terrain so player can go pretty much anywhere
+    Get tree, rock models
+    Clamp player movement to map
+
+    Build title and end scenes (slowly circle a randomly-generated scene)
+    Implement nature sounds - wind, birds, water, etc.
+    Add sun
+    Allow player to determine seed
+
+    To do later:
+    Make goal and player spawn points flat
+    Randomly generate trees, rocks and place around area
+    Implement music sparingly - like in Breath of the Wild?
+
+Other notes
+
+Credits
+
+Procedural generation tutorial by Arcane Hive
+Channel: https://www.youtube.com/channel/UCklhdFp9s_F1auQe9ZC9S2A
+
+Tent model by Khalkeus: http://www.procjam.com/art/khalkeus.html
+
+Fonts:
+Death Font by joshua1985: https://www.dafont.com/death-font-ver1-0.font
+Optimus Princeps by Manfred Klein: https://www.dafont.com/optimusprinceps.font
+
+Images made by me in Krita
+
+Game made by me in Godot

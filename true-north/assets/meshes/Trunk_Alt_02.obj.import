@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Trunk_Alt_02.obj-0d21fa96a100b73d7f5fa8f41acd219e.mesh"
+
+[deps]
+
+files=[ "res://.import/Trunk_Alt_02.obj-0d21fa96a100b73d7f5fa8f41acd219e.mesh" ]
+
+source_file="res://assets/meshes/Trunk_Alt_02.obj"
+dest_files=[ "res://.import/Trunk_Alt_02.obj-0d21fa96a100b73d7f5fa8f41acd219e.mesh", "res://.import/Trunk_Alt_02.obj-0d21fa96a100b73d7f5fa8f41acd219e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

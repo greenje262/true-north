@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Oak_Dark_01.obj-07f63f9a1ba2f1469c3ecee3a4c445b7.mesh"
+
+[deps]
+
+files=[ "res://.import/Oak_Dark_01.obj-07f63f9a1ba2f1469c3ecee3a4c445b7.mesh" ]
+
+source_file="res://assets/meshes/Oak_Dark_01.obj"
+dest_files=[ "res://.import/Oak_Dark_01.obj-07f63f9a1ba2f1469c3ecee3a4c445b7.mesh", "res://.import/Oak_Dark_01.obj-07f63f9a1ba2f1469c3ecee3a4c445b7.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
